@@ -10,14 +10,14 @@ public:
     auto operator =(shared_ptr &&) -> shared_ptr &;/*noexcept*/
   
     auto reset(T *tmp) -> void;/* strong */ 
-    auto swap(shared_ptr& r) noexcept -> void;/*noexcept*/
+    auto swap(shared_ptr& r) -> void;/*noexcept*/
   
     shared_ptr(shared_ptr const &); /*noexcept*/
     shared_ptr(shared_ptr &&);/*noexcept*/
     
     auto operator ->() const -> T &;/*strong*/
     auto operator *() const -> T *;/*strong*/
-    auto get() const noexcept -> T *;/*noexcept*/
+    auto get() const  -> T *;/*noexcept*/
     auto use_count() const->size_t;/*noexcept*/
  
 private:
