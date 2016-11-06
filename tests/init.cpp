@@ -3,25 +3,25 @@
 #include <iostream>
 
 SCENARIO("count get", "[count_and_get]"){
-	  shared_ptr<size_t> s;
-	  REQUIRE(s.count()==0);
+	  shared_ptr<int> s;
+	  REQUIRE(s.use_count()==0);
     REQUIRE(s.get()==nullptr);
 }
 
 SCENARIO("get for shared inotoalize", "[get_share]"){
-	  shared<size_t> s(new size_t(7));
+	  shared_ptr<int> s(new int(7));
 	  REQUIRE(s.get()==nullptr);
 }
 
 SCENARIO("Initialize shared", "[InShGet]") {
-	size_t * ptr = new size_t[10];
-	shared_ptr<size_t> s(ptr);
+	int * ptr = new int[10];
+	shared_ptr<int> s(ptr);
 	REQUIRE(ptr == s.get());
 }
 
 SCENARIO("check_UseCount", "[check_UseCount]"){
 	  shared_ptr<int> s1(new int(7));
-	  shared_ptr<int> s2 = std::move(sp1);
+	  shared_ptr<int> s2 = std::move(s1);
 	  REQUIRE(*s2 == 7);
 	  REQUIRE(s2.use_count() == 1);
 }
@@ -37,7 +37,7 @@ SCENARIO("prisv1", "[prisv1]"){
 SCENARIO("prisv2", "[prisv2]"){
 	  shared_ptr<int> s1(new int(7));
 	  shared_ptr<int> s2;
-	  sp2=std::move(s1);
+	  s2=std::move(s1);
 	  REQUIRE(*s2 == 7);
 	  REQUIRE(s2.use_count() == 1);
 }
@@ -57,7 +57,7 @@ SCENARIO("reset", "[reset]"){
 }
 
 SCENARIO("get", "[get]"){
-	  shared<int> s(new int(7));
+	  shared_ptr<int> s(new int(7));
 	  REQUIRE(*s.get() == 7);
 }
 
