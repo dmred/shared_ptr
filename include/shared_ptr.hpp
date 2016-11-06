@@ -105,3 +105,4 @@ template <class T>
 auto shared_ptr<T>::get() const-> T * {
     return ptr_;
 }
+//просто для пуша
