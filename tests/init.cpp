@@ -88,7 +88,7 @@ SCENARIO("countref", "[countref]"){
 
 SCENARIO("make_shared", "[make_shared]"){
 	int a = 7;
-	shared<int> s = make_shared<int>(std::move(a));
+	shared_ptr<int> s = make_shared<int>(std::move(a));
 	REQUIRE(*s==7);
 	}
 
