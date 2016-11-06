@@ -1,4 +1,4 @@
-#include <shared_ptr.cpp>
+#include <shared_ptr.hpp>
 #include <catch.hpp>
 #include <iostream>
 
