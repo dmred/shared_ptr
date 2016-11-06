@@ -37,7 +37,7 @@ auto make_shared( Args && ...args ) -> shared_ptr<T>
 }
 
 template <class T>
-shared<T>::shared_ptr(T *tmp) :  ptr_(tmp),
+shared_ptr<T>::shared_ptr(T *tmp) :  ptr_(tmp),
         counter(new size_t(1))
 {}
 
