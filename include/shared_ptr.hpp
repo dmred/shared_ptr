@@ -72,6 +72,21 @@ auto shared_ptr<T>::swap(shared_ptr &other) -> void {
 }
 
 template <class T>
+shared_ptr<T>::shared_ptr(shared_ptr const  &other): ptr_(other.ptr_),
+            counter(other.counter)
+{
+    if (counter != nullptr) ++(*counter);
+}
+
+template <class T>
+shared_ptr<T>::shared_ptr(shared_ptr<T> &&other) : ptr_(other.ptr_),
+        counter(other.counter)
+{
+    other.ptr_ = nullptr;
+    other.counter = nullptr;
+}
+
+template <class T>
 auto shared_ptr<T>::operator*() const -> T * {
     return ptr_;
 }
