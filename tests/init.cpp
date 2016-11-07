@@ -22,7 +22,7 @@ SCENARIO("Initialize shared", "[InShGet]") {
 SCENARIO("check_UseCount", "[check_UseCount]"){
 	  shared_ptr<int> s1(new int(7));
 	  shared_ptr<int> s2 = std::move(s1);
-	  REQUIRE(s2 == 7);
+	  REQUIRE(*s2 == 7);
 	  REQUIRE(s2.use_count() == 1);
 }
 
