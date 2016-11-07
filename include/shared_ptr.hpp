@@ -18,11 +18,11 @@ public:
     auto operator *() const -> T &;/*strong*/
     auto get() const  -> T *;/*noexcept*/
     auto use_count() const->size_t;/*noexcept*/
- 
 private:
     T* ptr_;
     size_t * counter;
 };
+
 
 template <class T>
 shared_ptr<T>::shared_ptr():   ptr_(nullptr),
@@ -30,7 +30,7 @@ shared_ptr<T>::shared_ptr():   ptr_(nullptr),
 {}
 
 template <typename T, class ...Args>
-auto make_shared( Args && ...args ) -> shared_ptr<T>
+auto make_shared(Args && ...args ) -> shared_ptr<T>
 {
     return shared_ptr<T>( new T( std::forward<Args>(args)... ) );
 }
@@ -56,6 +56,7 @@ auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
     return *this;
 }
 
+//заменяет объект, которым владеет
 template <class T>
 void shared_ptr<T>::reset(T *tmp) {
     delete ptr_;
