@@ -46,7 +46,7 @@ shared_ptr<T>::~shared_ptr() {
     if (counter)
     {
         if (*counter == 1) {
-            delete ptr;
+            delete ptr_;
             delete counter;
         }      else{
             --(*counter);
