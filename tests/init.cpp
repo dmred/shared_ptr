@@ -9,7 +9,7 @@ SCENARIO("count get", "[count_and_get]"){
 }
 
 SCENARIO("get for shared inotoalize", "[get_share]"){
-	  shared_ptr<int> s(new int(7));
+	  shared_ptr<int> s(new int(1));
 	  REQUIRE(s.get()==nullptr);
 }
 
@@ -20,45 +20,45 @@ SCENARIO("Initialize shared", "[InShGet]") {
 }
 
 SCENARIO("check_UseCount", "[check_UseCount]"){
-	  shared_ptr<int> s1(new int(7));
+	  shared_ptr<int> s1(new int(1));
 	  shared_ptr<int> s2 = std::move(s1);
-	  REQUIRE(*s2 == 7);
+	  REQUIRE(*s2 == 1);
 	  REQUIRE(s2.use_count() == 1);
 }
 
 SCENARIO("prisv1", "[prisv1]"){
-	  shared_ptr<int> s1(new int(7));
+	  shared_ptr<int> s1(new int(1));
 	  shared_ptr<int> s2; 
 	  s2 = s1;
-	  REQUIRE(*s2 == 7);
+	  REQUIRE(*s2 == 1);
 	  REQUIRE(s2.use_count() == 2);
 }
 
 SCENARIO("prisv2", "[prisv2]"){
-	  shared_ptr<int> s1(new int(7));
+	  shared_ptr<int> s1(new int(1));
 	  shared_ptr<int> s2;
 	  s2=std::move(s1);
-	  REQUIRE(*s2 == 7);
+	  REQUIRE(*s2 == 1);
 	  REQUIRE(s2.use_count() == 1);
 }
 
 SCENARIO("swap", "[swap]"){
-	  shared_ptr<int> s1(new int(7));
-	  shared_ptr<int> s2(new int(77));
+	  shared_ptr<int> s1(new int(1));
+	  shared_ptr<int> s2(new int(2));
 	  s1.swap(s2);
-	  REQUIRE(*s1 == 77);
-	  REQUIRE(*s2 == 7);
+	  REQUIRE(*s1 == 2);
+	  REQUIRE(*s2 == 1);
 }
 
 SCENARIO("reset", "[reset]"){
-	  shared_ptr<int> s(new int(7));
+	  shared_ptr<int> s(new int(1));
 	  s.reset(nullptr);
 	  REQUIRE(!s.get());
 }
 
 SCENARIO("get", "[get]"){
-	  shared_ptr<int> s(new int(7));
-	  REQUIRE(*s.get() == 7);
+	  shared_ptr<int> s(new int(1));
+	  REQUIRE(*s.get() == 1);
 }
 
 /*SCENARIO("op_->", "op_->"){
@@ -71,15 +71,16 @@ SCENARIO("get", "[get]"){
 	shared_ptr<tmp> sptr1=make_shared<tmp>(std::move(a));
 	REQUIRE(sptr1->a1 == 7);
 }
-
-SCENARIO("op_*", "[op_*]"){
-	  shared_ptr<int> sp(new int(7));
-	  REQUIRE(*sp == 7);
-}
 */
 
+SCENARIO("op_*", "[op_*]"){
+	  shared_ptr<int> s(new int(1));
+	  REQUIRE(*s == 1);
+}
+
+
 SCENARIO("countref", "[countref]"){
-	  shared_ptr<int> s1(new int(7));
+	  shared_ptr<int> s1(new int(1));
 	  shared_ptr<int> s2 = s1;
 	  shared_ptr<int> s3;
 	  s3 = s2;
@@ -87,9 +88,9 @@ SCENARIO("countref", "[countref]"){
 }
 
 SCENARIO("make_shared", "[make_shared]"){
-	int a = 7;
+	int a = 1;
 	shared_ptr<int> s = make_shared<int>(std::move(a));
-	REQUIRE(*s==7);
+	REQUIRE(*s==1);
 	}
 
 SCENARIO("test", "[test]"){
