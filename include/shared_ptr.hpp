@@ -5,6 +5,7 @@ class shared_ptr {
 public:
     shared_ptr();/*noexcept*/
     shared_ptr(T* ptr);/*strong*/
+    ~shared_ptr();/*noexcept*/
     auto operator= (shared_ptr const &)->shared_ptr &;/*noexcept*/
     auto operator =(shared_ptr &&) -> shared_ptr &;/*noexcept*/
   
@@ -40,6 +41,19 @@ shared_ptr<T>::shared_ptr(T *tmp) :  ptr_(tmp),
         counter(new size_t(1))
 {}
 
+template <class T>
+shared_ptr<T>::~shared_ptr() {
+    if (counter)
+    {
+        if (*counter == 1) {
+            delete ptr;
+            delete counter;
+        }      else{
+            --(*counter);
+        };
+    }
+}
+
 template<typename T>
 auto shared_ptr<T>::operator =(const shared_ptr & other) -> shared_ptr & 
 {
@@ -58,9 +72,9 @@ auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 
 //заменяет объект, которым владеет
 template <class T>
-void shared_ptr<T>::reset(T *tmp) {
-    delete ptr_;
-    delete counter;
+void shared_ptr<T>::reset(T *tmp) 
+{
+    this->~shared_ptr();
     ptr_ = tmp;
     counter = new size_t(1);
 }
