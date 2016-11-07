@@ -16,7 +16,7 @@ public:
     shared_ptr(shared_ptr &&);/*noexcept*/
     
     auto operator ->() const -> T &;/*strong*/
-    auto operator *() const -> T *;/*strong*/
+    auto operator *() const -> T &;/*strong*/
     auto get() const  -> T *;/*noexcept*/
     auto use_count() const->size_t;/*noexcept*/
  
@@ -87,8 +87,8 @@ shared_ptr<T>::shared_ptr(shared_ptr<T> &&other) : ptr_(other.ptr_),
 }
 
 template <class T>
-auto shared_ptr<T>::operator*() const -> T * {
-    return ptr_;
+auto shared_ptr<T>::operator*() const -> T & {
+    return *ptr_;
 }
 
 template<typename T>
