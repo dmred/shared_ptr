@@ -5,7 +5,7 @@
 SCENARIO("count get", "[count_and_get]"){
 	  shared_ptr<int> s;
 	  REQUIRE(s.use_count()==0);
-    REQUIRE(s.get()==nullptr);
+    REQUIRE(s.get()!=nullptr);
 }
 
 SCENARIO("get for shared inotoalize", "[get_share]"){
