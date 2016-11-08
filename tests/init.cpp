@@ -66,7 +66,7 @@ SCENARIO("op_->", "op_->"){
 	{
 	public:
 		int MyInt;
-		MyClass(int _MyInt) : MyInt(_myInt){}
+		MyClass(int _MyInt) : MyInt(_MyInt){}
 	};
 	MyClass MyInt(123);
 	shared_ptr<MyClass> s=make_shared<MyClass>(std::move(MyInt));
