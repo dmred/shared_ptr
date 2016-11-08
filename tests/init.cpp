@@ -61,17 +61,18 @@ SCENARIO("get", "[get]"){
 	  REQUIRE(*s.get() == 1);
 }
 
-/*SCENARIO("op_->", "op_->"){
-	class tmp{
+SCENARIO("op_->", "op_->"){
+	class MyClass
+	{
 	public:
-		int t;
-		tmp(int x) : t(x){}
+		int MyInt;
+		MyClass(int _MyInt) : MyInt(_myInt){}
 	};
-	tmp a(7);
-	shared_ptr<tmp> sptr1=make_shared<tmp>(std::move(a));
-	REQUIRE(sptr1->a1 == 7);
+	MyClass MyInt(123);
+	shared_ptr<MyClass> s=make_shared<MyClass>(std::move(MyInt));
+	REQUIRE(s->MyInt == 123);
 }
-*/
+
 
 SCENARIO("op_*", "[op_*]"){
 	  shared_ptr<int> s(new int(1));
