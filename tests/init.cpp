@@ -84,8 +84,6 @@ SCENARIO("op_*", "[op_*]"){
 	MyClass MyInt(123);
 	shared_ptr<MyClass> s=make_shared<MyClass>(std::move(MyInt));
 	REQUIRE((*s).MyInt == 123);
-	  //shared_ptr<int> s(new int(1));
-	  //REQUIRE(*s == 1);
 }
 
 
