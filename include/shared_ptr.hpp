@@ -43,6 +43,9 @@ shared_ptr<T>::shared_ptr(T *tmp) :  ptr_(tmp),
 
 template <class T>
 shared_ptr<T>::~shared_ptr() {
+	//if (counter && --(*counter)==0){
+	//delete ptr_; delete counter;}
+	
     if (counter)
     {
         if (*counter == 1) {
@@ -66,8 +69,11 @@ auto shared_ptr<T>::operator =(const shared_ptr & other) -> shared_ptr &
 template<typename T>
 auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 {
-    this->swap(other);
-    return *this;
+	if (this != &other) 
+		swap(other);
+	return *this;
+    //this->swap(other);
+    //return *this;
 }
 
 //заменяет объект, которым владеет
