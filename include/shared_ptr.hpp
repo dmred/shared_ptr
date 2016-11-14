@@ -9,7 +9,7 @@ public:
     auto operator= (shared_ptr const &)->shared_ptr &;/*noexcept*/
     auto operator =(shared_ptr &&) -> shared_ptr &;/*noexcept*/
   
-    auto reset(T *tmp) -> void;/* strong */ 
+    auto reset() -> void;/* strong */ 
     auto swap(shared_ptr& r) -> void;/*noexcept*/
   
     shared_ptr(shared_ptr const &); /*noexcept*/
@@ -83,7 +83,7 @@ auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 
 //заменяет объект, которым владеет
 template <class T>
-void shared_ptr<T>::reset(T *tmp) 
+void shared_ptr<T>::reset() 
 {
 	swap(shared_ptr());
 //     if (counter && --(*counter)==0){
