@@ -66,13 +66,13 @@ auto shared_ptr<T>::operator =(const shared_ptr & other) -> shared_ptr &
 	return *this;
 }
 
-template<typename T>
+template<typename T>//!!!!!!!!
 auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 {
-	swap(shared_ptr());
-// 	if (this != &other) 
-// 		swap(other);
-// 	return *this;
+
+	if (this != &other) 
+ 		swap(other);
+	return *this;
     //this->swap(other);
     //return *this;
 }
@@ -81,11 +81,12 @@ auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 template <class T>
 void shared_ptr<T>::reset(T *tmp) 
 {
-    if (counter && --(*counter)==0){
-	delete ptr_; delete counter;}
-    //this->~shared_ptr();
-    ptr_ = tmp;
-    counter = new size_t(1);
+	swap(shared_ptr());
+//     if (counter && --(*counter)==0){
+// 	delete ptr_; delete counter;}
+//     //this->~shared_ptr();
+//     ptr_ = tmp;
+//     counter = new size_t(1);
 }
 
 template <class T>
