@@ -43,18 +43,18 @@ shared_ptr<T>::shared_ptr(T *tmp) :  ptr_(tmp),
 
 template <class T>
 shared_ptr<T>::~shared_ptr() {
-	//if (counter && --(*counter)==0){
-	//delete ptr_; delete counter;}
+	if (counter && --(*counter)==0){
+		delete ptr_; delete counter;}
 	
-    if (counter)
-    {
-        if (*counter == 1) {
-            delete ptr_;
-            delete counter;
-        }      else{
-            --(*counter);
-        };
-    }
+//     if (counter)
+//     {
+//         if (*counter == 1) {
+//             delete ptr_;
+//             delete counter;
+//         }      else{
+//             --(*counter);
+//         };
+//     }
 }
 
 template<typename T>
@@ -69,9 +69,10 @@ auto shared_ptr<T>::operator =(const shared_ptr & other) -> shared_ptr &
 template<typename T>
 auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 {
-	if (this != &other) 
-		swap(other);
-	return *this;
+	swap(shared_ptr());
+// 	if (this != &other) 
+// 		swap(other);
+// 	return *this;
     //this->swap(other);
     //return *this;
 }
@@ -80,7 +81,9 @@ auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 template <class T>
 void shared_ptr<T>::reset(T *tmp) 
 {
-    this->~shared_ptr();
+    if (counter && --(*counter)==0){
+	delete ptr_; delete counter;}
+    //this->~shared_ptr();
     ptr_ = tmp;
     counter = new size_t(1);
 }
@@ -108,12 +111,18 @@ shared_ptr<T>::shared_ptr(shared_ptr<T> &&other) : ptr_(other.ptr_),
 
 template <class T>
 auto shared_ptr<T>::operator*() const -> T & {
-    return *ptr_;
+	if (ptr_ == nullptr) throw std::range_error("ptr_ = nullptr");
+	else return *ptr_;
+    //return *ptr_;
 }
 
 template<typename T>
 auto shared_ptr<T>::operator ->() const -> T *{
-       return ptr_;
+	if (ptr_ == nullptr) {
+		std::range_error("ptr_ = nullptr");
+	}
+	return ptr_;
+       //return ptr_;
 }
 
 template <typename T>
