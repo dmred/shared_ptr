@@ -85,7 +85,7 @@ auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 template <class T>
 void shared_ptr<T>::reset() 
 {
-	swap(shared_ptr());
+	swap(shared_ptr<T>());
 //     if (counter && --(*counter)==0){
 // 	delete ptr_; delete counter;}
 //     //this->~shared_ptr();
