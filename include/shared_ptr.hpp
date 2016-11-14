@@ -69,11 +69,15 @@ auto shared_ptr<T>::operator =(const shared_ptr & other) -> shared_ptr &
 template<typename T>//!!!!!!!!
 auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 {
-
-	if (this != &other) 
- 		swap(other);
-	return *this;
-    //this->swap(other);
+	if (this != &other) {
+        shared_ptr<T> rval(std::move(other));
+        this->swap(rval);
+    	}
+    	return *this;
+// 	if (this != &other) 
+//  		swap(other);
+// 	return *this;
+//     //this->swap(other);
     //return *this;
 }
 
