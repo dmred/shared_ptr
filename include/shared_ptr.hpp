@@ -111,16 +111,18 @@ shared_ptr<T>::shared_ptr(shared_ptr<T> &&other) : ptr_(other.ptr_),
 
 template <class T>
 auto shared_ptr<T>::operator*() const -> T & {
-	if (ptr_ == nullptr) throw std::range_error("ptr_ = nullptr");
+	if (ptr_ == nullptr) 
+		throw ("nullptr...");
+		//throw std::range_error("ptr_ = nullptr");
 	else return *ptr_;
     //return *ptr_;
 }
 
 template<typename T>
 auto shared_ptr<T>::operator ->() const -> T *{
-	if (ptr_ == nullptr) {
-		std::range_error("ptr_ = nullptr");
-	}
+	if (ptr_ == nullptr) 
+		throw ("nullptr...");
+		//std::range_error("ptr_ = nullptr");
 	return ptr_;
        //return ptr_;
 }
