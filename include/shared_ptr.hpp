@@ -10,7 +10,7 @@ public:
     auto operator =(shared_ptr &&) -> shared_ptr &;/*noexcept*/
   
     auto reset() -> void;/* strong */ 
-    auto swap(shared_ptr& r) -> void;/*noexcept*/
+    auto swap(shared_ptr&) -> void;/*noexcept*/
   
     shared_ptr(shared_ptr const &); /*noexcept*/
     shared_ptr(shared_ptr &&);/*noexcept*/
