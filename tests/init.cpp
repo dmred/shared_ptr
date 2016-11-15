@@ -52,7 +52,7 @@ SCENARIO("swap", "[swap]"){
 
 SCENARIO("reset", "[reset]"){
 	  shared_ptr<int> s(new int(1));
-	  s.reset();
+	  s.reset(nullptr);
 	  REQUIRE(!s.get());
 }
 
