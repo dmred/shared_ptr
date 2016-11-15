@@ -95,15 +95,15 @@ auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 
 template <class T>
 void shared_ptr<T>::reset(T *tmp) {
-    if (ptr != tmp) {
+    if (ptr_ != tmp) {
         if (*counter == 1) {
-            delete ptr;
+            delete ptr_;
             delete counter;
         } else {
             --(*counter);
         }
-        ptr = tmp;
-        if (ptr != nullptr) {
+        ptr_ = tmp;
+        if (ptr_ != nullptr) {
             counter = new size_t(1);
         } else {
             counter = nullptr;
