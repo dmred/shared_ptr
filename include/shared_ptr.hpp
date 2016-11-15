@@ -82,15 +82,33 @@ auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 }
 
 //заменяет объект, которым владеет
+// template <class T>
+// auto shared_ptr<T>::reset(T *tmp) 
+// {
+// 	swap(shared_ptr(tmp));
+// //     if (counter && --(*counter)==0){
+// // 	delete ptr_; delete counter;}
+// //     //this->~shared_ptr();
+// //     ptr_ = tmp;
+// //     counter = new size_t(1);
+// }
+
 template <class T>
-auto shared_ptr<T>::reset(T *tmp) 
-{
-	swap(shared_ptr(tmp));
-//     if (counter && --(*counter)==0){
-// 	delete ptr_; delete counter;}
-//     //this->~shared_ptr();
-//     ptr_ = tmp;
-//     counter = new size_t(1);
+void shared<T>::reset(T *tmp) {
+    if (ptr != tmp) {
+        if (*counter == 1) {
+            delete ptr;
+            delete counter;
+        } else {
+            --(*counter);
+        }
+        ptr = tmp;
+        if (ptr != nullptr) {
+            counter = new size_t(1);
+        } else {
+            counter = nullptr;
+        }
+    }
 }
 
 template <class T>
