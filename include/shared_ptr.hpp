@@ -94,7 +94,7 @@ auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 // }
 
 template <class T>
-void shared<T>::reset(T *tmp) {
+void shared_ptr<T>::reset(T *tmp) {
     if (ptr != tmp) {
         if (*counter == 1) {
             delete ptr;
