@@ -26,8 +26,7 @@ private:
 
 
 template <class T>
-shared_ptr<T>::shared_ptr():   ptr_(nullptr),
-            counter(nullptr)
+shared_ptr<T>::shared_ptr() : ptr_(nullptr), counter(nullptr)
 {}
 
 template <typename T, class ...Args>
@@ -37,96 +36,61 @@ auto make_shared(Args && ...args ) -> shared_ptr<T>
 }
 
 template <class T>
-shared_ptr<T>::shared_ptr(T *tmp) :  ptr_(tmp),
-        counter(new size_t(1))
-{}
+shared_ptr<T>::shared_ptr(T *ptr) :  ptr_(ptr), counter(new size_t(1))
+{
+    ;
+}
 
 template <class T>
-shared_ptr<T>::~shared_ptr() {
-	if (counter && --(*counter)==0){
-		delete ptr_; delete counter;}
-	
-//     if (counter)
-//     {
-//         if (*counter == 1) {
-//             delete ptr_;
-//             delete counter;
-//         }      else{
-//             --(*counter);
-//         };
-//     }
+shared_ptr<T>::~shared_ptr() 
+{
+	if ( counter && --(*counter)==0 ) {
+		delete ptr_; 
+		delete counter;
+	}
 }
 
 template<typename T>
 auto shared_ptr<T>::operator =(const shared_ptr & other) -> shared_ptr & 
 {
 	if (this != &other) {
-		(shared_ptr<T>(other)).swap(*this);
+		shared_ptr(other).swap(*this);
 	}
 	return *this;
 }
 
-template<typename T>//!!!!!!!!
+template<typename T>
 auto shared_ptr<T>::operator =(shared_ptr && other) -> shared_ptr &
 {
 	if (this != &other) {
-        shared_ptr<T> rval(std::move(other));
-        this->swap(rval);
+        	shared_ptr<T> rval(std::move(other));
+        	this->swap(rval);
     	}
     	return *this;
-// 	if (this != &other) 
-//  		swap(other);
-// 	return *this;
-//     //this->swap(other);
-    //return *this;
 }
-
-//заменяет объект, которым владеет
-// template <class T>
-// auto shared_ptr<T>::reset(T *tmp) 
-// {
-// 	swap(shared_ptr(tmp));
-// //     if (counter && --(*counter)==0){
-// // 	delete ptr_; delete counter;}
-// //     //this->~shared_ptr();
-// //     ptr_ = tmp;
-// //     counter = new size_t(1);
-// }
-
 template <class T>
-void shared_ptr<T>::reset(T *tmp) {
-    if (ptr_ != tmp) {
-        if (*counter == 1) {
-            delete ptr_;
-            delete counter;
-        } else {
-            --(*counter);
-        }
-        ptr_ = tmp;
-        if (ptr_ != nullptr) {
-            counter = new size_t(1);
-        } else {
-            counter = nullptr;
-        }
-    }
+void shared_ptr<T>::reset(T *ptr) 
+{
+    shared_ptr(ptr).swap(*this);
 }
 
 template <class T>
-auto shared_ptr<T>::swap(shared_ptr &other) -> void {
+auto shared_ptr<T>::swap(shared_ptr &other) -> void 
+{
     std::swap(ptr_, other.ptr_);
     std::swap(counter, other.counter);
 }
 
 template <class T>
-shared_ptr<T>::shared_ptr(shared_ptr const  &other): ptr_(other.ptr_),
-            counter(other.counter)
+shared_ptr<T>::shared_ptr(shared_ptr const  &other): ptr_(other.ptr_), counter(other.counter)
 {
-    if (counter != nullptr) ++(*counter);
+    if (counter != nullptr) {
+	    ++(*counter);
+    }
 }
 
 template <class T>
-shared_ptr<T>::shared_ptr(shared_ptr<T> &&other) : ptr_(other.ptr_),
-        counter(other.counter)
+shared_ptr<T>::shared_ptr(shared_ptr<T> &&other) : ptr_(other.ptr_), counter(other.counter)
 {
     other.ptr_ = nullptr;
     other.counter = nullptr;
@@ -134,29 +98,31 @@ shared_ptr<T>::shared_ptr(shared_ptr<T> &&other) : ptr_(other.ptr_),
 
 template <class T>
 auto shared_ptr<T>::operator*() const -> T & {
-	if (ptr_ == nullptr) 
-		throw ("nullptr...");
-		//throw std::range_error("ptr_ = nullptr");
-	else return *ptr_;
-    //return *ptr_;
+	if (ptr_ == nullptr) {
+		throw "nullptr...";
+	}
+	else {
+		return *ptr_;
+	}
 }
 
 template<typename T>
-auto shared_ptr<T>::operator ->() const -> T *{
-	if (ptr_ == nullptr) 
-		throw ("nullptr...");
-		//std::range_error("ptr_ = nullptr");
+auto shared_ptr<T>::operator ->() const -> T *
+{
+	if (ptr_ == nullptr) {
+		throw "nullptr...";
+	}
 	return ptr_;
-       //return ptr_;
 }
 
 template <typename T>
-auto shared_ptr<T>::use_count() const -> size_t {
-    return (counter!=nullptr ? *counter : 0);
+auto shared_ptr<T>::use_count() const -> size_t 
+{
+    return counter!=nullptr ? *counter : 0;
 }
 
 template <class T>
-auto shared_ptr<T>::get() const-> T * {
+auto shared_ptr<T>::get() const-> T * 
+{
     return ptr_;
 }
-//просто для пуша
